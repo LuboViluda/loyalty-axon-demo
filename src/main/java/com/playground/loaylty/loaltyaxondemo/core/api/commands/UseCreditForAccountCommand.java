@@ -16,4 +16,16 @@ public class UseCreditForAccountCommand {
         this.date = date;
         this.amount = amount;
     }
+
+    public UUID getAccountUuid() {
+        return accountUuid;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
 }

@@ -42,9 +42,9 @@ public class AccountController {
     }
 
     @PostMapping("/{accountId}/createTransaction/{amount}")
-    public void createTransaction(@PathVariable("accountId") String accountId,
+    public CompletableFuture<Void> createTransaction(@PathVariable("accountId") String accountId,
                                   @PathVariable("amount") Long amount) {
-        CompletableFuture<Object> send = commandGateway.send(new CreateTransactionCommand(UUID.fromString(accountId), LocalDate.now(), amount));
+        return  commandGateway.send(new CreateTransactionCommand(UUID.fromString(accountId), LocalDate.now(), amount));
     }
 
     @PostMapping("/{accountId}/evaluateCredit/")
@@ -53,9 +53,9 @@ public class AccountController {
     }
 
     @PostMapping("/{accountId}/useCredit/{amount}")
-    public void useCredit(@PathVariable("accountId") String accountId,
+    public CompletableFuture useCredit(@PathVariable("accountId") String accountId,
                           @PathVariable("amount") Long amount) {
-        commandGateway.send(new UseCreditForAccountCommand(UUID.fromString(accountId), LocalDate.now(), amount));
+        return commandGateway.send(new UseCreditForAccountCommand(UUID.fromString(accountId), LocalDate.now(), amount));
     }
 
     @GetMapping("/")

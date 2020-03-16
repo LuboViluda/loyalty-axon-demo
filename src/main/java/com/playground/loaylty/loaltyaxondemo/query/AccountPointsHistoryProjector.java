@@ -29,7 +29,7 @@ public class AccountPointsHistoryProjector {
     @EventHandler
     void on(UseCreditForAccountEvent useCreditForAccountEvent) {
         PointsChangeTracker pointsChangeTracker = accounts.get(useCreditForAccountEvent.getAccountUuid());
-        pointsChangeTracker.addPointsChange(useCreditForAccountEvent.getDate(), Long.reverse(useCreditForAccountEvent.getUsedCredit()), USED_CREDIT);
+        pointsChangeTracker.addPointsChange(useCreditForAccountEvent.getDate(), (- useCreditForAccountEvent.getUsedCredit()), USED_CREDIT);
     }
 
     @EventHandler

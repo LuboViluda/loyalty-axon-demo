@@ -3,6 +3,7 @@ package com.playground.loaylty.loaltyaxondemo.aggregates;
 import com.playground.loaylty.loaltyaxondemo.core.api.commands.CreateAccountCommand;
 import com.playground.loaylty.loaltyaxondemo.core.api.commands.CreateTransactionCommand;
 import com.playground.loaylty.loaltyaxondemo.core.api.commands.EvaluateCreditForAccountCommand;
+import com.playground.loaylty.loaltyaxondemo.core.api.commands.UseCreditForAccountCommand;
 import com.playground.loaylty.loaltyaxondemo.core.api.events.*;
 import com.playground.loaylty.loaltyaxondemo.core.api.exceptions.InsufficientFundException;
 import com.playground.loaylty.loaltyaxondemo.util.DateUtils;
@@ -46,16 +47,16 @@ public class Account {
     }
 
     @CommandHandler
-    public void useCreditForAccount(UseCreditForAccountEvent useCreditForAccountEvent) {
-        if (useCreditForAccountEvent.getUsedCredit() > availablePoints) {
+    public void useCreditForAccount(UseCreditForAccountCommand useCreditForAccountCommand) {
+        if (useCreditForAccountCommand.getAmount() > availablePoints) {
             throw new InsufficientFundException();
         }
 
         AggregateLifecycle.apply(
                 new UseCreditForAccountEvent(
                         accountUuid,
-                        useCreditForAccountEvent.getDate(),
-                        useCreditForAccountEvent.getUsedCredit()));
+                        useCreditForAccountCommand.getDate(),
+                        useCreditForAccountCommand.getAmount()));
     }
 
     // schedule command handler?
