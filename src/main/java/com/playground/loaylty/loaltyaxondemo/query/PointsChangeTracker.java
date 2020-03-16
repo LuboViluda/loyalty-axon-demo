@@ -1,10 +1,12 @@
 package com.playground.loaylty.loaltyaxondemo.query;
 
+import com.playground.loaylty.loaltyaxondemo.query.PointChange.ChangeType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-class PointsChangeTracker {
+public class PointsChangeTracker {
     private List<PointChange> pointChangeList;
 
     PointsChangeTracker() {
@@ -19,33 +21,4 @@ class PointsChangeTracker {
         return pointChangeList;
     }
 
-    static class PointChange {
-        private final LocalDate localDate;
-        private final long change;
-        private final ChangeType changeType;
-
-        public PointChange(LocalDate localDate, long change, ChangeType changeType) {
-            this.localDate = localDate;
-            this.change = change;
-            this.changeType = changeType;
-        }
-
-        public LocalDate getLocalDate() {
-            return localDate;
-        }
-
-        public long getChange() {
-            return change;
-        }
-
-        public ChangeType getChangeType() {
-            return changeType;
-        }
-    }
-
-    public enum ChangeType {
-        ADD_CREDIT,
-        DISCARD_CREDIT,
-        USED_CREDIT
-    }
 }

@@ -4,7 +4,9 @@ import com.playground.loaylty.loaltyaxondemo.core.api.events.AddCreditForAccount
 import com.playground.loaylty.loaltyaxondemo.core.api.events.CreateAccountEvent;
 import com.playground.loaylty.loaltyaxondemo.core.api.events.CreateTransactionEvent;
 import com.playground.loaylty.loaltyaxondemo.core.api.events.DiscardCreditForAccountEvent;
+import com.playground.loaylty.loaltyaxondemo.core.api.queries.AccountPendingPointsQuery;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -33,5 +35,10 @@ public class AccountPendingPointsProjector {
     @EventHandler
     void on(DiscardCreditForAccountEvent discardCreditForAccountEvent) {
         accounts.put(discardCreditForAccountEvent.getAccountUuid(), 0L);
+    }
+
+    @QueryHandler
+    long handle(AccountPendingPointsQuery accountPendingPointsQuery) {
+        return accounts.get(accountPendingPointsQuery.getUuid());
     }
 }

@@ -19,6 +19,8 @@ import java.util.*;
 
 @Aggregate
 public class Account {
+    private static final int START_AVAILABLE_POINTS = 100;
+
     @AggregateIdentifier
     private UUID accountUuid;
     @AggregateMember
@@ -31,7 +33,7 @@ public class Account {
 
     @CommandHandler
     public Account(CreateAccountCommand createAccountCommand) {
-        AggregateLifecycle.apply(new CreateAccountEvent(createAccountCommand.getUuid()));
+        AggregateLifecycle.apply(new CreateAccountEvent(createAccountCommand.getUuid(), START_AVAILABLE_POINTS, DateUtils.now()));
     }
 
     @CommandHandler
@@ -70,7 +72,7 @@ public class Account {
     public void on(CreateAccountEvent createAccountEvent) {
         accountUuid = createAccountEvent.getUuid();
         transactions = new ArrayList<>();
-        availablePoints = 0;
+        availablePoints = START_AVAILABLE_POINTS;
     }
 
     @EventSourcingHandler

@@ -18,7 +18,7 @@ public class AccountAvailablePointsProjector {
 
     @EventHandler
     void on(CreateAccountEvent createAccountEvent) {
-        accounts.put(createAccountEvent.getUuid(), 0L);
+        accounts.put(createAccountEvent.getUuid(), createAccountEvent.getInitBalance());
     }
 
     @EventHandler
